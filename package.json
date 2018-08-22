@@ -1,3 +1,5 @@
-"scripts": {
-	"start": "node aqi.js"
+{
+	"scripts": {
+		"start": "sudo node src/aqi.js"
+	}
 }

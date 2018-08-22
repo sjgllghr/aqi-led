@@ -1,5 +1,9 @@
-const leds = require('./led');
-const LEVELS = require('./constants').LEVELS;
+/*
+Iterates through all AQI level displays and error display
+*/
+
+const leds = require('../src/led');
+const LEVELS = require('../src/constants').LEVELS;
 
 let level = 0;
 

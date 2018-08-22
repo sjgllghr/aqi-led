@@ -8,6 +8,7 @@ const strongRed = new Gpio(23, {mode: Gpio.OUTPUT});
 
 const leds = [green, red1, red2, red3, red4, strongRed];
 
+// Turns off all LEDs before exiting
 process.on('SIGINT', () => {
 	console.log('Shutting down');
 	for (let i = 0; i < leds.length; i++) {
@@ -16,6 +17,7 @@ process.on('SIGINT', () => {
 	process.exit();
 });
 
+// Sets the first and last LEDs only
 function setErrorLEDs() {
 	for (let i = 1; i < leds.length -1; i++) {
 		leds[i].pwmWrite(0);
@@ -25,17 +27,21 @@ function setErrorLEDs() {
 	strongRed.pwmWrite(100);	
 }
 
+// Resets the LED display to fit the current AQI level
+// All lights up to level should be on, all after off
 function updateLEDs(level) {
 	lightPrevious(level);
 	clearRemaining(level);
 }
 
+// Turns on all LEDs up to and including level
 function lightPrevious(level) {
 	for (let i = 0; i <= level; i++) {
 		leds[i].pwmWrite(200);
 	}
 }
 
+// Turns off all LEDs after level
 function clearRemaining(level) {
 	for (let i = level + 1; i < leds.length; i++) {
 		leds[i].pwmWrite(0);

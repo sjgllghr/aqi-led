@@ -3,16 +3,18 @@ const led = require('./led');
 
 const LEVELS = require('./constants').LEVELS;
 
-const FIVE_MINUTES = 300000;
-const FIVE_SECONDS = 5000;
+const TEN_MINUTES = 600000;
+const TEN_SECONDS = 10000;
 
 let zip = process.argv[2];
 
 if (zip == undefined) {
-    console.log("Usage: node aqi.js <ZIPCODE>");
+    console.log("Usage: npm start -- <ZIPCODE> OR sudo node aqi.js <ZIPCODE>");
     process.exit();
 }
 
+// Gets the current AQI rating for the provided zipcode and updates the LED
+// display according to severity or errors.
 setInterval(() => {
     request({
         uri: 'https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=' + zip + '&submit=Go'
@@ -21,7 +23,8 @@ setInterval(() => {
             console.log(err);
             return;
         }
-
+	
+	// The first instance of this is unique to the AQI rating element
         let tag = body.indexOf('/images/aqi_unh_lg.gif');
 
         if (tag == -1) {
@@ -39,12 +42,14 @@ setInterval(() => {
             led.updateLEDs(level);
         }
     });
-}, FIVE_SECONDS);
+}, TEN_SECONDS);
 
+// Takes in an AQI rating and returns the severity of that rating
+// More about levels can be found here: https://airnow.gov/index.cfm?action=aqibasics.aqi
 function ratingSeverity(rating) {
-    let index = Math.floor((rating - 1) / 50);
-    if (index >= LEVELS) {
-        index = LEVELS - 1;
+    let level = Math.floor((rating - 1) / 50);
+    if (level >= LEVELS) {
+        level = LEVELS - 1;
     }
 
     return index;
