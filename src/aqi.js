@@ -1,5 +1,4 @@
 const request = require('request');
-const led = require('./led');
 
 // Gets the current AQI rating for the provided zipcode
 function getAQI(zip) {

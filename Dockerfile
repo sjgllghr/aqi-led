@@ -12,6 +12,8 @@ COPY ./src/ ./src/
 # set default zip to Seattle
 ENV zip 98101
 
+ENV interval 600000
+
 RUN apt-get update && apt-get -y install sudo
 
-CMD ["sh", "-c", "npm start -- ${zip}"]
+CMD ["sh", "-c", "npm start -- ${zip} ${interval}"]

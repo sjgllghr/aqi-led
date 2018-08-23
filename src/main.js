@@ -4,17 +4,21 @@ const led = require('./led');
 const LEVEL_STRINGS = require('./constants').LEVEL_STRINGS;
 
 const TEN_MINUTES = 600000;
-const TEN_SECONDS = 10000;
 
 let zip = process.argv[2];
+let interval = process.argv[3];
+
+if (interval == undefined) {
+    interval = TEN_MINUTES;
+}
 
 if (zip == undefined) {
-    console.log("Usage: npm start -- <ZIPCODE>");
+    console.log("Usage: npm start -- <ZIPCODE> [INTERVAL(ms)]");
     process.exit();
 }
 
 updateDisplay(zip);
-setInterval(() => updateDisplay(zip), TEN_SECONDS); 
+setInterval(() => updateDisplay(zip), interval); 
 
 function updateDisplay(zip) {
     aqi.getAQI(zip).then((rating) => {
@@ -22,11 +26,11 @@ function updateDisplay(zip) {
         console.log(rating + ' -- ' + LEVEL_STRINGS[level]);
         led.updateLEDs(level);
     }).catch((err) => {
-    	if (err) {
+        if (err) {
             console.error(err);
-	    }
+        }
 
         console.log('Unable to get AQI data');
-	    led.setErrorLEDs();
+        led.setErrorLEDs();
     });
 }

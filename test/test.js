@@ -41,7 +41,7 @@ describe('ratingSeverity()', function () {
 
 describe('getAQI()', function() {
     it.skip('should reject for invalid zip codes', function() {
-        aqi.getAQI(99999).then((result) => {
+        aqi.getAQI(99999).then(() => {
             expect.fail();
         }).catch((err) => {
             expect(err).to.be.equal('AQI not found');
