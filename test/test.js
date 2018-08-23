@@ -40,7 +40,7 @@ describe('ratingSeverity()', function () {
 });
 
 describe('getAQI()', function() {
-    it.skip('should reject for invalid zip codes', function() {
+    it('should reject for invalid zip codes', function() {
         aqi.getAQI(99999).then(() => {
             expect.fail();
         }).catch((err) => {
@@ -48,7 +48,7 @@ describe('getAQI()', function() {
         });
     });
 
-    it.skip('should return a value between 0 and 500 or so', async function() {
+    it('should return a value between 0 and 500 or so', async function() {
         try {
             let result = await aqi.getAQI(98101);
             expect(parseInt(result)).to.be.within(0, 600);
