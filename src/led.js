@@ -8,14 +8,17 @@ const strongRed = new Gpio(23, 'out');
 
 const leds = [green, red1, red2, red3, red4, strongRed];
 
+process.on('SIGINT', shutdown); 
+process.on('SIGTERM', shutdown);
+
 // Turns off all LEDs before exiting
-process.on('SIGINT', () => {
+function shutdown() {
 	console.log('Shutting down');
 	for (let i = 0; i < leds.length; i++) {
 		leds[i].writeSync(0);
 	}
-        setTimeout(process.exit(), 300);
-});
+    process.exit();
+}
 
 // Sets the first and last LEDs only
 function setErrorLEDs() {
