@@ -11,7 +11,7 @@ function getAQI(zip) {
             }
 	
             // The first instance of this is unique to the AQI rating element
-            let tag = body.indexOf('/images/aqi_unh_lg.gif');
+            let tag = body.indexOf('background="/images/aqi_');
 
             if (tag == -1) {
                 // Element containing AQI data not found, usually means site
