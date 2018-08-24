@@ -6,7 +6,7 @@ An air quality display that allows you to visualize what your lungs are already 
 - Docker for Raspberry Pi or Raspbian Jessie with node v8.11.4
 - Breadboard, 6 LEDs, 6 resistors (~200 ohms), wires, etc.
 
-## Usage
+## Setup
 ### Download
 ```
 git clone https://github.com/sjgllghr/aqi-led.git
@@ -21,6 +21,7 @@ Basic steps:
 - Connect each of the resistors to ground
 - Connect Raspberry Pi ground to breadboard ground
 
+## Usage
 ### Using npm
 ```
 npm install
@@ -39,7 +40,6 @@ docker container run --privileged  -e zip=<ZIPCODE> -e interval=[INTERVAL] -d do
 ```
 Interval defaults to ten minutes, zip defaults to 98101 (Seattle). Privileged flag is necessary to get access to GPIO.
 
-## Tests
 ### Testing
 Tests can be found in test/ folder and run with:
 ```
@@ -56,5 +56,5 @@ npm run pretest
 ### Demo
 To loop through all the lighting states
 ```
-sudo node demo/led-demo.js 
+npm run demo
 ```

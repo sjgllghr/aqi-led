@@ -18,3 +18,8 @@ setInterval(() => {
 		level = 0;
 	}
 }, 2000);
+
+process.on('SIGINT', () => {
+    leds.turnOffLEDs;
+    process.exit();
+});

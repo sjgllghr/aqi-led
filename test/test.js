@@ -10,7 +10,7 @@ const ratingSeverity = aqi.ratingSeverity;
 
 const leds = ledRewire.__get__('leds');
 
-function turnOffLEDs() {
+function _turnOffLEDs() {
     for (let i = 0; i < leds.length; i++) {
         leds[i].writeSync(0);
     }
@@ -89,7 +89,7 @@ describe('setErrorLEDs()', function() {
         }
     });
 
-    after(turnOffLEDs);
+    after(_turnOffLEDs);
 });
 
 describe('updateLEDs()', function() {
@@ -119,5 +119,36 @@ describe('updateLEDs()', function() {
         }
     });
 
-    after(turnOffLEDs);
+    after(_turnOffLEDs);
+});
+
+describe('turnOffLEDs()', function() {
+    it('should keep all off LEDs off', function() {
+        led.turnOffLEDs();
+        for (let i = 0; i < leds.length; i++) {
+            expect(leds[i].readSync()).to.equal(0);
+        }
+    });
+
+    it('should turn off all LEDs when all on', function() {
+        for (let i = 0; i < leds.length; i++) {
+            leds[i].writeSync(1);
+        }
+        led.turnOffLEDs();
+        for (let i = 0; i < leds.length; i++) {
+            expect(leds[i].readSync()).to.equal(0);
+        }
+    });
+
+    it('should result in all LEDs off when some on', function() {
+        leds[0].writeSync(1);
+        leds[3].writeSync(1);
+        leds[5].writeSync(1);
+        
+        led.turnOffLEDs();
+        
+        for (let i = 0; i < leds.length; i++) {
+            expect(leds[i].readSync()).to.equal(0);
+        }
+    });
 });

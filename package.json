@@ -1,7 +1,11 @@
 {
 	"name": "aqi-led",
+    "version": "0.0.1",
+    "description": "aqi-led is an air quality display intended for use with LEDs connected to a Raspberry Pi.",
 	"scripts": {
 		"start": "sudo node ./src/main.js",
+        "demo": "sudo node ./demo/led-demo.js",
+        "stop": "sudo node ./src/stop.js",
 		"test": "mocha",
 		"pretest": "./node_modules/.bin/eslint ./src/*"
 	},
@@ -18,5 +22,6 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/sjgllghr/aqi-led.git"
-	}
+	},
+    "license": "MIT"
 }

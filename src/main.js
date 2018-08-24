@@ -5,6 +5,9 @@ const LEVEL_STRINGS = require('./constants').LEVEL_STRINGS;
 
 const TEN_MINUTES = 600000;
 
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
+
 let zip = process.argv[2];
 let interval = process.argv[3];
 
@@ -33,4 +36,10 @@ function updateDisplay(zip) {
         console.log('Unable to get AQI data');
         led.setErrorLEDs();
     });
+}
+
+function shutdown() {
+    console.log('Shutting Down');
+    led.turnOffLEDs();
+    process.exit();
 }
