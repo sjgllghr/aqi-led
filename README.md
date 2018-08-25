@@ -66,3 +66,8 @@ To loop through all the lighting states:
 ```
 npm run demo
 ```
+Which should look something like:  
+
+![](https://github.com/sjgllghr/aqi-led/blob/docs/demo/demo.gif)
+
+With each severity level having an increasing amount of LEDs lit, and an error display state of just the first and last LED.
