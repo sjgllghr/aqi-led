@@ -20,6 +20,6 @@ setInterval(() => {
 }, 2000);
 
 process.on('SIGINT', () => {
-    leds.turnOffLEDs;
+    leds.turnOffLEDs();
     process.exit();
 });
